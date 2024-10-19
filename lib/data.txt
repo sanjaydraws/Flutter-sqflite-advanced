@@ -1,0 +1,31 @@
+
+onCreate Method:
+
+The onCreate method is called only when the database is created for the first time.
+This occurs when the specified database file does not exist.
+In your _initDatabase method, if you set the version to 2 and the database does not exist yet,
+ the onCreate method will be executed, creating both the User and Order tables.
+This method is called only when the database is created for the first time. This happens if the database file does not already exist.
+It does not matter what version number you set in the openDatabase call. The onCreate method will only run if the database file is completely missing.
+
+
+
+ onUpgrade Method:
+
+ The onUpgrade method is triggered only when the version number increases. It compares the oldVersion to the newVersion. If the oldVersion is less than the newVersion, the upgrade logic is executed.
+ If both the old version and new version are set to 2, the onUpgrade method will not be called, as the condition if (oldVersion < newVersion) will evaluate to false.
+
+
+
+ Scenario Breakdown:
+ First Installation:
+
+ When a user installs the app for the first time, and the database file does not exist:
+ Version: 2 (first-time creation)
+ onCreate will be called, creating the User and Order tables.
+ Upgrading an Existing Installation:
+
+ If a user has installed version 2 of the app and the database exists:
+ Version: 2 (both old and new)
+ onCreate will NOT be called because the database already exists.
+ Neither onCreate nor onUpgrade will be called, and the existing schema remains intact.(onUpgrade  not call because new and old version was 2)
